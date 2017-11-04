@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    
+    <meta charset="UTF-8">
+    
+    <title>Quotes</title>
+    
+    <style>
+    
+      body {
+        background-color: rgb(100, 100, 100);
+      }
+      
+      #quote-container {
+        background-color: rgb(100, 0, 100);
+        width: 50%;
+        margin: auto;
+        margin-top: 5%;
+        min-height:300px;
+        border-radius: 5%;
+      }
+      
+      #text {
+        font-size: 250%;
+        color: white;
+        padding: 5%;
+      }
+      
+      #author {
+        font-size: 200%;
+        color: white;
+        padding: 5%;
+        text-align: right;
+      }
+      
+      #new-quote {
+        background-color: pink;
+        font-size: 100%;
+        border-radius: 10%;
+        padding: 2%;
+        border: 1px solid pink;
+        margin-bottom: 3%;
+        margin-left: 4%;
+        outline:none;
+        color: rgb(100, 0, 100);
+        font-weight: bold; 
+      }
+      
+      #twitter {
+        background-color: rgb(7, 147, 247);
+        font-size: 100%;
+        border-radius: 10%;
+        padding: 2%;
+        padding-left: 6%;
+        padding-right: 6%;
+        border: 1px solid rgb(7, 147, 247);
+        margin-bottom: 3%;
+        margin-right: 4%;
+        outline:none;
+        color: white;
+        float:right;
+      }
+       
+      /* .twitter-share-button {
+        float: right;
+        padding-right: 4%;
+       }*/
+    
+    </style>
+    
+  </head>
+
+  <body>
+
+    <div id="quote-container">
+    
+      <div id="text">Let the beauty of what you love be  what you do.
+      </div>
+   
+      <div id="author">Rumi
+      </div>
+    
+      <button id="new-quote" class="button">New quote</button>
+      
+      <a class="twitter-share-button"
+      href="" data-size="large" target="_blank"><button id ="twitter">Tweet</button></a>
+   
+    </div>
+
+    <script
+    src="http://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+  
+    <script>
+  
+      $(".twitter-share-button").attr("href", "https://twitter.com/intent/tweet?text=" + $("#text").text() + " " + $("#author").text());
+
+      function takeQuote(a){
+        $("#text").text(a.quoteText);
+        $("#author").text(a.quoteAuthor);
+        $(".twitter-share-button").attr("href", "https://twitter.com/intent/tweet?text=" + $("#text").text() + " " + $("#author").text());
+      }
+  
+      $("#new-quote").click(function(){ 
+        $.ajax({
+          url:"https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=takeQuote",
+          dataType: "jsonp"
+        })
+      });
+ 
+    </script>
+
+  </body>
+
+</html>
+
